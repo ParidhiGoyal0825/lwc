@@ -189,7 +189,7 @@ export default class CaseHierarchy extends LightningElement {
             parentId
         };
     }
-
+// Twest
     isDescendantOf(row, ancestorId) {
         while (row && row.parentId) {
             if (row.parentId === ancestorId) return true;
