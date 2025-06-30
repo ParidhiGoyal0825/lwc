@@ -1,0 +1,15 @@
+<template>
+    <lightning-record-edit-form 
+    object-api-name="Case" 
+    onsuccess={handleSuccess} 
+    onerror={handleError}>
+    
+    <lightning-input-field field-name="Subject"></lightning-input-field>
+    <lightning-input-field field-name="Description"></lightning-input-field>
+    <lightning-input-field field-name="Priority"></lightning-input-field>
+    <lightning-input-field field-name="Status"></lightning-input-field>
+    <lightning-input-field field-name="ContactId"></lightning-input-field>
+
+    <lightning-button class="slds-m-top_small" type="submit" label="Create Case" variant="brand"></lightning-button>
+</lightning-record-edit-form>
+    </template>

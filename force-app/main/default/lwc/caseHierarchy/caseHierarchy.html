@@ -1,0 +1,103 @@
+<template>
+    <lightning-card title="Case Hierarchy">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th></th>
+                    <template for:each={columns} for:item="col">
+                        <th key={col.fieldName}>{col.label}</th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={computedRows} for:item="row">
+                    <tr key={row.Id} class={row.rowClass}>
+                        <td>
+                            <lightning-button-icon
+                                icon-name={row.icon}
+                                variant="bare"
+                                alternative-text="Toggle"
+                                class={row.buttonClass}
+                                data-id={row.Id}
+                                onclick={handleToggle}>
+                            </lightning-button-icon>
+                        </td>
+                        <template for:each={row.displayCells} for:item="cell">
+                            <td key={cell.key}>
+                                <template if:true={cell.isAction}>
+                                    <lightning-button-menu
+                                        alternative-text="Show actions"
+                                        icon-name="utility:down"
+                                        menu-alignment="auto"
+                                        variant="border-filled"
+                                        onselect={handleActionSelect}
+                                        data-id={cell.rowId}>
+                                        <lightning-menu-item value="new" label="New Case"></lightning-menu-item>
+                                        <lightning-menu-item value="edit" label="Edit"></lightning-menu-item>
+                                        <lightning-menu-item value="delete" label="Delete"></lightning-menu-item>
+                                        <lightning-menu-item value="email" label="Send Email"></lightning-menu-item>
+                                    </lightning-button-menu>
+                                </template>
+                                <template if:false={cell.isAction}>
+                                    <template if:true={cell.isLink}>
+                                        <a href={cell.url} target="_blank">{cell.value}</a>
+                                    </template>
+                                    <template if:false={cell.isLink}>
+                                        {cell.value}
+                                    </template>
+                                </template>
+                            </td>
+                        </template>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+
+    <!-- CREATE MODAL -->
+    <template if:true={showCreateModal}>
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">New Child Case</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-edit-form object-api-name="Case" onsuccess={handleCreateSuccess} oncancel={closeCreateModal}>
+                        <lightning-input-field field-name="ParentId" value={currentParentId} class="slds-hide"></lightning-input-field>
+                        <lightning-input-field field-name="Subject"></lightning-input-field>
+                        <lightning-input-field field-name="Status"></lightning-input-field>
+                        <lightning-input-field field-name="Priority"></lightning-input-field>
+                        <div class="slds-modal__footer">
+                            <lightning-button variant="neutral" label="Cancel" onclick={closeCreateModal}></lightning-button>
+                            <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- EDIT MODAL -->
+    <template if:true={showEditModal}>
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Edit Case</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-edit-form object-api-name="Case" record-id={editRecordId} onsuccess={handleEditSuccess} oncancel={closeEditModal}>
+                        <lightning-input-field field-name="Subject"></lightning-input-field>
+                        <lightning-input-field field-name="Status"></lightning-input-field>
+                        <lightning-input-field field-name="Priority"></lightning-input-field>
+                        <div class="slds-modal__footer">
+                            <lightning-button variant="neutral" label="Cancel" onclick={closeEditModal}></lightning-button>
+                            <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

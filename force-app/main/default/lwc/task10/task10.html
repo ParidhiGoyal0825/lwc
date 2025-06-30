@@ -1,0 +1,15 @@
+<template>
+        <lightning-combobox
+        label="Select an account"
+        onchange={handleChange}
+        options={options}
+        value={value}>
+        </lightning-combobox>
+     
+        <lightning-datatable key-field="id"
+        data={data}
+        columns={columns}>
+        </lightning-datatable>
+     
+       
+     </template>

@@ -1,0 +1,22 @@
+<template>
+    <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading charts..." size="medium"></lightning-spinner>
+    </template>
+
+    <template if:true={errorMessage}>
+        <div class="slds-text-color_error slds-p-around_small">
+            Error: {errorMessage}
+        </div>
+    </template>
+
+    <template if:true={chartsReady}>
+        <div class="slds-grid slds-wrap slds-p-around_small">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_small">
+                <canvas class="chart-previous-quarter" style="min-height: 120px;"></canvas>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_small">
+                <canvas class="chart-upcoming-quarter" style="min-height: 120px;"></canvas>
+            </div>
+        </div>
+    </template>
+</template>

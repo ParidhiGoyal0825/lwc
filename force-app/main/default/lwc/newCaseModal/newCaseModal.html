@@ -1,0 +1,33 @@
+<template>
+    <lightning-modal-header label="New Child Case"></lightning-modal-header>
+    
+    <lightning-modal-body>
+        <lightning-input 
+            label="Subject" 
+            value={subject} 
+            onchange={handleChange} 
+            data-field="subject">
+        </lightning-input>
+
+        <lightning-combobox
+            label="Status"
+            value={status}
+            options={statusOptions}
+            onchange={handleChange}
+            data-field="status">
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Priority"
+            value={priority}
+            options={priorityOptions}
+            onchange={handleChange}
+            data-field="priority">
+        </lightning-combobox>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+        <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+    </lightning-modal-footer>
+</template>

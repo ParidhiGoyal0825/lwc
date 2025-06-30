@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Pending Leave Requests">
+      <lightning-datatable
+        key-field="Id"
+        data={leaveRequests}
+        columns={columns}
+        onrowaction={handleRowAction}
+        hide-checkbox-column>
+      </lightning-datatable>
+    </lightning-card>
+  </template>

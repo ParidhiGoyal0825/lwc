@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="API Configuration Settings" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <lightning-input label="Endpoint URL" value={endpointUrl} onchange={handleChange} data-id="endpointUrl"></lightning-input>
+            <lightning-input label="Refresh Token" value={refreshToken} onchange={handleChange} data-id="refreshToken"></lightning-input>
+            <lightning-input label="Client ID" value={clientId} onchange={handleChange} data-id="clientId"></lightning-input>
+            <lightning-input label="Client Secret" value={clientSecret} onchange={handleChange} data-id="clientSecret"></lightning-input>
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

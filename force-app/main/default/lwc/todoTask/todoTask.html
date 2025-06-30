@@ -1,0 +1,21 @@
+<template>
+            <lightning-card title="Simple To-Do App">
+                <div class="slds-m-around_medium">
+                    <lightning-input label="New Task" value={newTask} onchange={handleInput}></lightning-input>
+                    <lightning-button label="Add Task" onclick={addTask} class="slds-m-top_small"></lightning-button>
+        
+                    <template if:true={tasks.length}>
+                        <ul class="slds-m-top_medium">
+                            <template for:each={tasks} for:item="task">
+                                <li key={task.id} class="slds-m-bottom_x-small">
+                                    {task.name}
+                                    <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                        onclick={handleDelete} data-id={task.id} class="slds-m-left_small"
+                                        variant="destructive"></lightning-button-icon>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+            </lightning-card>
+        </template>

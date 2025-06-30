@@ -1,0 +1,25 @@
+<template>
+        <lightning-card title="Real Time Account Record" icon-name="standard:account">
+            <div class="slds-m-around_medium">
+                <lightning-record-view-form record-id={recordId} object-api-name="Account">
+                    <lightning-output-field field-name="Name"></lightning-output-field>
+                    <lightning-output-field field-name="Phone"></lightning-output-field>
+                    <lightning-output-field field-name="Type"></lightning-output-field>
+                    <lightning-output-field field-name="Website"></lightning-output-field>
+                </lightning-record-view-form>
+    
+                <lightning-button label="Edit" onclick={handleEdit} class="slds-m-around_medium"></lightning-button>
+    
+                <template if:true={isEditFormVisible}>
+                    <lightning-record-edit-form record-id={recordId} object-api-name="Account" onsuccess={handleSuccess}> 
+                        <lightning-input-field field-name="Name"></lightning-input-field>
+                        <lightning-input-field field-name="Phone"></lightning-input-field>
+                        <lightning-input-field field-name="Type"></lightning-input-field>
+                        <lightning-input-field field-name="Website"></lightning-input-field>
+                        <lightning-button class="slds-m-around_medium" variant="brand" type="submit" label="Save"></lightning-button>
+                        <lightning-button class="slds-m-around_medium" variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+                    </lightning-record-edit-form>
+                </template>
+            </div>
+        </lightning-card>
+    </template>

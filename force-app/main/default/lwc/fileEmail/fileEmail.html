@@ -1,0 +1,131 @@
+<template>
+  <lightning-button label="Compose" icon-name="utility:edit" onclick={openModal}></lightning-button>
+
+  <template if:true={isModalOpen}>
+    <section class="compose-modal">
+      <div class={computedModalClass}>
+        <header class="compose-header">
+          <div class="header-title">New Message</div>
+          <div class="header-actions">
+            <lightning-button-icon icon-name="utility:minimize_window" onclick={minimizeModal}></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:expand_alt" onclick={maximizeModal}></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:close" onclick={closeModal}></lightning-button-icon>
+          </div>
+        </header>
+
+        <div class="compose-body">
+          <div class="recipient-line">
+            <span class="recipient-label">To</span>
+            <input type="text"
+              variant="label-hidden"
+              value={toInputValue}
+              placeholder="Recipients"
+              data-field="toInputValue"
+              data-field-type="to"
+              onchange={handleChange}
+              onkeyup={handleKeyUp}
+              onblur={handleBlur}
+              class="input-line">
+            <button class="inline-btn" onclick={toggleCc}>Cc</button>
+            <button class="inline-btn" onclick={toggleBcc}>Bcc</button>
+          </div>
+
+          <template if:true={showToError}>
+            <div class="slds-text-color_error slds-text-body_small slds-m-left_medium slds-m-top_xx-small">Please enter a valid email</div>
+          </template>
+
+          <template if:true={toRecipients.length}>
+            <div class="pill-container">
+              <template for:each={toRecipients} for:item="email">
+                <lightning-pill key={email} label={email} icon-name="utility:close" data-value={email} data-field="toRecipients" onclick={handleRemoveRecipient}></lightning-pill>
+              </template>
+            </div>
+          </template>
+
+          <template if:true={showCc}>
+            <div class="recipient-line">
+              <span class="recipient-label">Cc</span>
+              <input type="text" class="input-line" placeholder="Cc" value={ccInputValue} onchange={handleChange} />
+            </div>
+          </template>
+
+          <template if:true={showBcc}>
+            <div class="recipient-line">
+              <span class="recipient-label">Bcc</span>
+              <input type="text" class="input-line" placeholder="Bcc" value={bccInputValue} onchange={handleChange} />
+            </div>
+          </template>
+
+          <div class="subject-line">
+            <input type="text" class="input-line" placeholder="Subject" value={subject} onchange={handleChange} />
+          </div>
+          <template for:each={editors} for:item="ed">
+            <lightning-input-rich-text 
+                key={ed.id}
+                disabled-categories={disabledCategoriesString}
+                variant="bottom-toolbar"
+                value={body}
+                data-field="body"
+                onchange={handleChange}
+                placeholder="Write your message..."
+                class="slds-grow"
+                data-id="emailBody">
+
+            </lightning-input-rich-text> 
+        </template>
+          
+
+          <template if:true={attachments.length}>
+            <ul class="slds-list_horizontal slds-wrap">
+              <template for:each={attachments} for:item="attachment">
+                <li key={attachment.fileName} class="slds-m-around_small">
+                  <lightning-pill label={attachment.fileName} icon-name="utility:close" alternative-text="Remove" data-value={attachment.fileName} data-file-id={attachment.id} onclick={handleRemoveFile}></lightning-pill>
+                </li>
+              </template>
+            </ul>
+          </template>
+          
+
+
+          <!-- // Emoji Picker -->
+          <template lwc:if={isEmojiPickerClicked}>
+            <div class="emoji-picker slds-p-around_small slds-box">
+                <template for:each={emojiList} for:item="emoji">
+                    <span 
+                        key={emoji}
+                        class="emoji-item slds-m-around_x-small"
+                        onclick={handleEmojiClick}
+                        data-emoji={emoji}
+                        style="font-size: 1.5rem; cursor: pointer;">
+                        {emoji}
+                    </span>
+                </template>
+            </div>
+        </template>
+        </div>
+
+        <footer class="compose-footer">
+          <button class="send-btn" onclick={sendEmail}>Send</button>
+          <div class="footer-icons">
+            <lightning-icon icon-name="utility:upload" size="small" class="upload-icon" onclick={handleFileUpload}></lightning-icon>
+
+            <input hidden onchange={handleFileChange} class="slds-hidden uploader" type="file" />
+            <lightning-icon 
+            class="slds-m-around_small"
+            icon-name="utility:text_color" 
+            alternative-text="Connected" 
+            size="small" 
+            title="Text Style"
+            onclick={toggleEditText}
+            variant="base">
+        </lightning-icon>
+            <lightning-icon icon-name="utility:text_format" size="small"></lightning-icon>
+            <lightning-icon icon-name="utility:emoji" size="small" onclick={toggleEmojiPicker}></lightning-icon>
+            <lightning-icon icon-name="utility:photo" size="small"></lightning-icon>
+          </div>
+          <lightning-button-icon icon-name="utility:delete" onclick={closeModal}></lightning-button-icon>
+        </footer>
+      </div>
+    </section>
+  </template>
+</template>

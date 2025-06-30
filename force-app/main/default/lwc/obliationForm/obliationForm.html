@@ -1,0 +1,42 @@
+<template>
+    <lightning-button 
+        variant="brand"
+        label="Add Row" 
+        onclick={handleClick}>
+    </lightning-button>
+
+    <template if:true={isModalOpen}>
+        <section role="dialog" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Add Obligation</h2>
+                    <button class="slds-button slds-modal__close" title="Close" onclick={handleClick}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                    </button>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-edit-form 
+                    object-api-name="Obligation__c"
+                    onsuccess={handleSuccess}
+                    onerror={handleError}
+                >
+                    <lightning-messages></lightning-messages>
+                
+                    <template for:each={customFields} for:item="field">
+                        <lightning-input-field key={field} field-name={field}></lightning-input-field>
+                    </template>
+                
+                    <div class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={handleClick}></lightning-button>
+                        <lightning-button variant="brand" type="submit" label="Create"></lightning-button>
+                    </div>
+                </lightning-record-edit-form>
+                </div>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,11 @@
+<template>
+    <lightning-input type="number" name="num1" label="Number 1" value={num1} onchange={numChange}></lightning-input>
+    <lightning-input type="number" name="num2" label="Number 2" value={num2} onchange={numChange}></lightning-input>
+
+    <lightning-button variant="brand" label="Add" onclick={add}></lightning-button>
+    <lightning-button variant="brand" label="Subtract" onclick={subtract}></lightning-button>
+    <lightning-button variant="brand" label="Multiply" onclick={multiply}></lightning-button>
+    <lightning-button variant="brand" label="Divide" onclick={divide}></lightning-button>
+
+    <p>Result: {result}</p>
+</template>

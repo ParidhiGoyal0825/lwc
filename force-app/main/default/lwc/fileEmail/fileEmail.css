@@ -1,0 +1,110 @@
+.compose-modal {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 1000;
+  width: 600px;
+  transition: all 0.3s ease;
+}
+
+.compose-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.compose-header {
+  background-color: #f1f3f4;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.compose-body {
+  flex-grow: 1;
+  padding: 0.75rem;
+  overflow-y: auto;
+}
+
+.recipient-line, .subject-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.recipient-label {
+  width: 30px;
+  font-weight: 600;
+}
+
+.input-line {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 6px;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+}
+
+.input-line::placeholder {
+  color: #999;
+}
+
+.inline-btn {
+  background: none;
+  border: none;
+  color: #1976d2;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.compose-textarea {
+  width: 100%;
+  min-height: 150px;
+  border: none;
+  resize: vertical;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+  margin-top: 10px;
+}
+.emoji-picker {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #f4f6f9;
+  border-radius: 0.5rem;
+}
+.compose-textarea::placeholder {
+  color: #999;
+}
+
+.compose-footer {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.send-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.footer-icons lightning-icon {
+  margin: 0 0.4rem;
+  cursor: pointer;
+}

@@ -1,0 +1,17 @@
+<template>
+        <lightning-card title="Dynamic Record Viewer">
+            <div class="slds-p-around_medium">
+                <lightning-input label="Object Name" value={objectName} onchange={handleObjectChange}></lightning-input>
+                <lightning-input label="Fields (comma-separated)" value={fieldsCSV} onchange={handleFieldsChange}></lightning-input>
+                <lightning-button label="Load Records" onclick={loadRecords} class="slds-m-top_small"></lightning-button>
+            </div>
+    
+            <template if:true={records}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={records}
+                    columns={columns}>
+                </lightning-datatable>
+            </template>
+        </lightning-card>
+    </template>

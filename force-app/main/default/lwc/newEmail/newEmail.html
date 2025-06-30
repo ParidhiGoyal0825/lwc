@@ -1,0 +1,118 @@
+<template>
+  <!-- Compose Button -->
+  <lightning-button label="Compose" icon-name="utility:edit" onclick={openModal}></lightning-button>
+
+  <!-- Modal -->
+  <template if:true={isModalOpen}>
+    <section class="compose-modal">
+      <div class={computedModalClass}>
+
+        <!-- Header -->
+        <header class="compose-header slds-grid slds-p-around_small slds-border_bottom">
+          <div class="slds-text-title_bold">New Message</div>
+          <div class="slds-m-left_auto slds-grid slds-align-end">
+            <lightning-button-icon icon-name="utility:minimize_window" class="slds-m-horizontal_xx-small" onclick={minimizeModal}></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:expand_alt" class="slds-m-horizontal_xx-small" onclick={maximizeModal}></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:close" onclick={closeModal}></lightning-button-icon>
+          </div>
+        </header>
+
+        <!-- Body -->
+        <div class="compose-body">
+          <div class="slds-grid slds-align_absolute-center recipient-row">
+            <span class="recipient-label">To</span>
+            <lightning-input
+              variant="label-hidden"
+              value={toInputValue}
+              placeholder="Recipients"
+              data-field="toInputValue"
+              data-field-type="to"
+              onchange={handleChange}
+              onkeyup={handleKeyUp}
+              onblur={handleBlur}
+              class={toInputClass}>
+            </lightning-input>
+            <lightning-button variant="base" label="Cc" onclick={toggleCc} class="slds-m-left_xx-small"></lightning-button>
+            <lightning-button variant="base" label="Bcc" onclick={toggleBcc} class="slds-m-left_xx-small"></lightning-button>
+          </div>
+
+          <template if:true={showToError}>
+            <div class="slds-text-color_error slds-text-body_small slds-m-left_medium slds-m-top_xx-small">Please enter a valid email</div>
+          </template>
+
+          <template if:true={toRecipients.length}>
+            <div class="pill-container">
+              <template for:each={toRecipients} for:item="email">
+                <lightning-pill key={email} label={email} icon-name="utility:close" data-value={email} data-field="toRecipients" onclick={handleRemoveRecipient}></lightning-pill>
+              </template>
+            </div>
+          </template>
+
+          <template if:true={showCc}>
+            <div class="recipient-row">
+              <span class="recipient-label">Cc</span>
+              <lightning-input
+                variant="label-hidden"
+                value={ccInputValue}
+                placeholder="Cc"
+                data-field="ccInputValue"
+                data-field-type="cc"
+                onchange={handleChange}
+                onkeyup={handleKeyUp}>
+              </lightning-input>
+            </div>
+          </template>
+
+          <template if:true={showBcc}>
+            <div class="recipient-row">
+              <span class="recipient-label">Bcc</span>
+              <lightning-input
+                variant="label-hidden"
+                value={bccInputValue}
+                placeholder="Bcc"
+                data-field="bccInputValue"
+                data-field-type="bcc"
+                onchange={handleChange}
+                onkeyup={handleKeyUp}>
+              </lightning-input>
+            </div>
+          </template>
+
+          <lightning-input
+            class="slds-m-vertical_small"
+            label="Subject"
+            variant="label-hidden"
+            value={subject}
+            data-field="subject"
+            onchange={handleChange}
+            placeholder="Subject">
+          </lightning-input>
+
+          <lightning-textarea
+            label="Body"
+            variant="label-hidden"
+            value={body}
+            data-field="body"
+            onchange={handleChange}
+            placeholder="Write your message..."
+            class="compose-textarea">
+          </lightning-textarea>
+        </div>
+
+        <!-- Footer -->
+        <footer class="compose-footer">
+          <lightning-button variant="brand" label="Send" onclick={sendEmail}></lightning-button>
+
+          <div class="footer-icons slds-m-left_medium slds-grid">
+            <lightning-icon icon-name="utility:attach" alternative-text="Attach" size="small" class="slds-m-horizontal_xx-small"></lightning-icon>
+            <lightning-icon icon-name="utility:link" alternative-text="Link" size="small" class="slds-m-horizontal_xx-small"></lightning-icon>
+            <lightning-icon icon-name="utility:emoji" alternative-text="Emoji" size="small" class="slds-m-horizontal_xx-small"></lightning-icon>
+            <lightning-icon icon-name="utility:lock" alternative-text="Confidential" size="small" class="slds-m-horizontal_xx-small"></lightning-icon>
+          </div>
+
+          <lightning-button-icon class="slds-m-left_auto" icon-name="utility:delete" alternative-text="Discard" onclick={closeModal}></lightning-button-icon>
+        </footer>
+      </div>
+    </section>
+  </template>
+</template>

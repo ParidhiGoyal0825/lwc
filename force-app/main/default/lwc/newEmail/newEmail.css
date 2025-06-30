@@ -1,0 +1,103 @@
+.compose-modal {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 1000;
+  width: 600px;
+  transition: all 0.3s ease;
+}
+
+.compose-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.compose-header {
+  background-color: #f1f3f4;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compose-body {
+  flex-grow: 1;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.75rem;
+  transition: opacity 0.3s ease;
+}
+
+.compose-textarea {
+  min-height: 150px;
+}
+
+.compose-footer {
+  border-top: 1px solid #ddd;
+  background: #f9f9f9;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.footer-icons lightning-icon {
+  cursor: pointer;
+}
+
+.recipient-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.recipient-label {
+  width: 30px;
+  font-weight: bold;
+}
+
+.pill-container lightning-pill {
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* MINIMIZED STATE */
+.compose-container.minimized {
+  height: 50px;
+  width: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.compose-container.minimized .compose-body,
+.compose-container.minimized .compose-footer {
+  display: none;
+}
+
+/* MAXIMIZED STATE */
+.compose-container.maximized {
+  width: 100vw;
+  height: 75vh;
+  border-radius: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+}
+
+.compose-container.maximized .compose-body {
+  max-height: calc(100vh - 150px); /* Adjust based on header/footer */
+}
+
+.compose-container.maximized .compose-footer {
+  justify-content: space-between;
+}

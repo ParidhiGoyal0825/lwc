@@ -1,0 +1,17 @@
+<template>
+    <lightning-card>
+        <table>
+            <tr>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>AnnualRevenue</th>
+        </tr>
+        <template for:each={accounts.data} for:item="account">
+            <tr key={account.Id}>
+                <td>{account.Name}</td>
+                <td>{account.Rating}</td>
+                <td>{account.AnnualRevenue}</td>
+                </tr>
+        </table>
+    </lightning-card>
+</template>

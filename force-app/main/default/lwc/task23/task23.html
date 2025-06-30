@@ -1,0 +1,58 @@
+<template>
+        <lightning-card title="Generic SObject Lookup" icon-name="standard:search">
+            <div class="slds-p-around_medium">
+     
+                <lightning-input
+                    label="Object API Name"
+                    value={objectApiName}
+                    onchange={handleObjectChange}
+                    placeholder="e.g. Account, Contact"
+                    class="slds-m-bottom_small"
+                ></lightning-input>
+     
+                <lightning-input
+                    label="Search Field API Name"
+                    value={searchField}
+                    onchange={handleFieldChange}
+                    placeholder="e.g. Name, Phone"
+                    class="slds-m-bottom_small"
+                ></lightning-input>
+     
+                <lightning-input
+                    label="Search Keyword"
+                    value={searchKeyword}
+                    onchange={handleKeywordChange}
+                    placeholder="e.g. Salesforce"
+                    class="slds-m-bottom_small"
+                ></lightning-input>
+     
+                <lightning-button
+                    label="Search"
+                    variant="brand"
+                    onclick={handleSearch}
+                ></lightning-button>
+     
+                <template if:true={results}>
+                    <ul class="slds-m-top_medium">
+                        <template for:each={results} for:item="record">
+                            <li key={record.Id} class="slds-m-bottom_x-small">
+                                <lightning-button
+                                    variant="neutral"
+                                    label={record.displayLabel}
+                                    data-id={record.Id}
+                                    onclick={handleSelect}
+                                ></lightning-button>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+     
+                <template if:true={selectedLabel}>
+                    <p class="slds-m-top_medium slds-text-color_success">
+                        <strong>Selected Record:</strong> {selectedLabel}
+                    </p>
+                </template>
+     
+            </div>
+        </lightning-card>
+     </template>

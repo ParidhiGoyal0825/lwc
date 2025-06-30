@@ -1,0 +1,29 @@
+<template>
+        <lightning-card title="Accounts Data Table">
+    
+            
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+    
+            <lightning-datatable
+                key-field="Id"
+                data={data}
+                columns={columns}
+                draft-values={saveDraftValue}
+                onsave={handleSave}
+                onrowselection={handleRowsSelection}
+                show-row-number-column>
+            </lightning-datatable>
+    
+            
+            <div class="slds-m-top_medium slds-p-around_small">
+                <lightning-button
+                    label="Delete"
+                    onclick={handleDeleteButton}
+                   ></lightning-button>
+             
+            </div>
+    
+        </lightning-card>
+    </template>

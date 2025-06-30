@@ -1,0 +1,48 @@
+<template>
+        <lightning-card title="Compare Two Opportunity Records" icon-name="standard:Opportunity">
+            <div class="slds-p-around_medium">
+                <lightning-input
+                    label="Original Record Id"
+                    value={originalRecordId}
+                    onchange={handleOriginalRecordChange}
+                    placeholder="Enter Original Opportunity Id">
+                </lightning-input>
+    
+                <lightning-input
+                    label="Cloned Record Id"
+                    value={clonedRecordId}
+                    onchange={handleClonedRecordChange}
+                    placeholder="Enter Cloned Opportunity Id">
+                </lightning-input>
+    
+                <template if:true={areRecordsSelected}>
+                    <lightning-button
+                        label="Compare Records"
+                        variant="brand"
+                        onclick={compareRecords}
+                        class="slds-m-top_medium">
+                    </lightning-button>
+                </template>
+    
+                <template if:true={fieldDiffs}>
+                    <div class="slds-m-top_large">
+                        <template for:each={fieldDiffs} for:item="diff">
+                            <div key={diff.fieldName} class="slds-m-bottom_small">
+                                <strong>{diff.fieldName}</strong>:
+                                <div class="slds-p-left_medium">
+                                    <div><span class="original-value">Original: {diff.originalValue}</span></div>
+                                    <div><span class="cloned-value">Cloned: {diff.clonedValue}</span></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+    
+                <template if:true={error}>
+                    <div class="slds-text-color_error slds-m-top_medium">
+                        Error: {error}
+                    </div>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
